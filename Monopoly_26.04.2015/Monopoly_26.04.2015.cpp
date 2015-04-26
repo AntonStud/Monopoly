@@ -6,6 +6,20 @@
 
 #define MAX_LOADSTRING 100
 
+enum CTRLSNMS {
+	BUTTON, EDIT, LISTBOX, COMBOBOX
+};
+
+char *controlNames[] = {
+	{ "BUTTON" },
+	{ "EDIT" },
+	{ "LISTBOX" },
+	{ "COMBOBOX" }
+};
+
+
+vector<HWND>myControls;
+
 // Global Variables:
 HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
@@ -31,7 +45,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	// Initialize global strings
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-	LoadString(hInstance, IDC_MONOPOLY_26042015, szWindowClass, MAX_LOADSTRING);
+	LoadString(hInstance, IDC_MONOPOLY, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
 
 	// Perform application initialization:
@@ -40,7 +54,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 		return FALSE;
 	}
 
-	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MONOPOLY_26042015));
+	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MONOPOLY));
 
 	// Main message loop:
 	while (GetMessage(&msg, NULL, 0, 0))
@@ -54,8 +68,6 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	return (int) msg.wParam;
 }
-
-
 
 //
 //  FUNCTION: MyRegisterClass()
@@ -73,10 +85,10 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= hInstance;
-	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MONOPOLY_26042015));
+	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MONOPOLY));
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
-	wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_MONOPOLY_26042015);
+	wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_MONOPOLY);
 	wcex.lpszClassName	= szWindowClass;
 	wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -150,7 +162,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	case WM_CREATE:
 
-
+		myControls.push_back(CreateWindowEx(WS_EX_CLIENTEDGE, controlNames[COMBOBOX], "",
+			WS_CHILD | WS_VISIBLE | CBS_SIMPLE,
+			LIST_X, LIST_Y, LIST_H_SIZE, LIST_V_SIZE, hWnd, (HMENU)ID_COMBO_LIST, hinst, NULL)
 
 		break;
 

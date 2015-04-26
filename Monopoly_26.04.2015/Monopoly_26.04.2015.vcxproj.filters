@@ -48,7 +48,7 @@
     <Image Include="small.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Monopoly_26.04.2015.ico">
+    <Image Include="Monopoly.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
