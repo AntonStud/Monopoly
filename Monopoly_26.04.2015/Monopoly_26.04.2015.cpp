@@ -6,17 +6,12 @@
 
 #define MAX_LOADSTRING 100
 
-enum CTRLSNMS {
-	BUTTON, EDIT, LISTBOX, COMBOBOX
-};
-
 char *controlNames[] = {
 	{ "BUTTON" },
 	{ "EDIT" },
 	{ "LISTBOX" },
 	{ "COMBOBOX" }
 };
-
 
 vector<HWND>myControls;
 
@@ -25,11 +20,6 @@ HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 
-// Forward declarations of functions included in this code module:
-ATOM				MyRegisterClass(HINSTANCE hInstance);
-BOOL				InitInstance(HINSTANCE, int);
-LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -80,7 +70,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
 	wcex.cbSize = sizeof(WNDCLASSEX);
 
-	wcex.style			= CS_HREDRAW | CS_VREDRAW;
+	wcex.style			= CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
 	wcex.lpfnWndProc	= WndProc;
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
@@ -111,8 +101,19 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    hInst = hInstance; // Store instance handle in our global variable
 
+
+   // Получаем центр рабочего стола
+   int center = FindCenterDesktopH();
+
+   int xPosWnd = center - WIDTH / 2;
+
+   center = FindCenterDesktopV();
+
+   int yPosWnd = center - HEIGHT / 2;
+
+
    hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+	   xPosWnd, yPosWnd, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
 
    if (!hWnd)
    {
@@ -162,9 +163,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	case WM_CREATE:
 
-		myControls.push_back(CreateWindowEx(WS_EX_CLIENTEDGE, controlNames[COMBOBOX], "",
-			WS_CHILD | WS_VISIBLE | CBS_SIMPLE,
-			LIST_X, LIST_Y, LIST_H_SIZE, LIST_V_SIZE, hWnd, (HMENU)ID_COMBO_LIST, hinst, NULL)
+		myControls.push_back(CreateWindowEx(WS_EX_CLIENTEDGE, controlNames[LISTBOX], "",
+			WS_CHILD | WS_VISIBLE,
+			LIST_X, LIST_Y, LIST_H_SIZE, LIST_V_SIZE, hWnd, (HMENU)ID_COMBO_LIST, hInst, NULL));
 
 		break;
 
@@ -200,4 +201,34 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 	return (INT_PTR)FALSE;
-}
+}// INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+
+
+int FindCenterDesktopH(void)
+{
+	// Получаем хэндл рабочего стола
+	HWND hDesktop = GetDesktopWindow();
+
+	// Переменная для хранения координат углов рабочего стола
+	RECT rectDesktop;
+
+	// Записываем углы рабочего стола в переменную
+	GetWindowRect(hDesktop, &rectDesktop);
+
+	return (rectDesktop.right - rectDesktop.left) / 2;
+
+}// int FindCenterDesktopH(void)
+
+int FindCenterDesktopV(void)
+{
+	// Получаем хэндл рабочего стола
+	HWND hDesktop = GetDesktopWindow();
+
+	// Переменная для хранения координат углов рабочего стола
+	RECT rectDesktop;
+
+	// Записываем углы рабочего стола в переменную
+	GetWindowRect(hDesktop, &rectDesktop);
+
+	return (rectDesktop.bottom - rectDesktop.top) / 2;
+}// int FindCenterDesktopV(void
