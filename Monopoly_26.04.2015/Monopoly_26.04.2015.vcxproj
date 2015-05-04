@@ -79,23 +79,33 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dice.h" />
+    <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gamer.h" />
     <ClInclude Include="Monopoly_26.04.2015.h" />
+    <ClInclude Include="Notice.h" />
     <ClInclude Include="Property.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SpecialPlace.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Surpise.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Dice.cpp" />
+    <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gamer.cpp" />
     <ClCompile Include="Monopoly_26.04.2015.cpp" />
+    <ClCompile Include="Notice.cpp" />
     <ClCompile Include="Property.cpp" />
+    <ClCompile Include="SpecialPlace.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Surpise.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Monopoly_26.04.2015.rc" />

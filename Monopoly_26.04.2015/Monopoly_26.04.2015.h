@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Game.h"
 #include "resource.h"
 
 // Forward declarations of functions included in this code module:
@@ -30,7 +30,7 @@ enum CTRLSNMS {
 
 enum IDENT {
 
-	ID_BTN_DOWN = 1000, ID_COMBO_LIST
+	ID_BTN_DOWN = 1000, ID_COMBO_LIST, ID_BTN_ROLL, ID_BTN_START, ID_EDIT_DICE1, ID_EDIT_DICE2
 
 };
 

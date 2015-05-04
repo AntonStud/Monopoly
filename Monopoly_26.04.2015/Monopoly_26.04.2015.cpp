@@ -13,6 +13,8 @@ char *controlNames[] = {
 	{ "COMBOBOX" }
 };
 
+std::unique_ptr<Game> game(new Game);
+
 vector<HWND>myControls;
 
 // Global Variables:
@@ -142,14 +144,94 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 
+	
+
 	switch (message)
 	{
+	case WM_CREATE:
+
+		myControls.push_back(CreateWindowEx(WS_EX_CLIENTEDGE, controlNames[LISTBOX], "",
+			WS_CHILD | WS_VISIBLE,
+			LIST_X, LIST_Y, LIST_H_SIZE, LIST_V_SIZE, hWnd, (HMENU)ID_COMBO_LIST, hInst, NULL));
+
+		myControls.push_back(CreateWindowEx(NULL, controlNames[BUTTON], "START",
+			WS_CHILD | WS_VISIBLE,
+			LIST_X * 2 + LIST_H_SIZE, LIST_Y, BTN_H_SIZE, BTN_V_SIZE, hWnd, (HMENU)ID_BTN_START, hInst, NULL));
+
+		myControls.push_back(CreateWindowEx(NULL, controlNames[BUTTON], "ROLL",
+			WS_CHILD | WS_VISIBLE,
+			LIST_X * 2 + LIST_H_SIZE, LIST_Y * 2 + BTN_V_SIZE, BTN_H_SIZE, BTN_V_SIZE, hWnd, (HMENU)ID_BTN_ROLL, hInst, NULL));
+
+		myControls.push_back(CreateWindowEx(WS_EX_CLIENTEDGE, controlNames[EDIT], "",
+			WS_CHILD | WS_VISIBLE | ES_CENTER,
+			LIST_X * 2 + LIST_H_SIZE, LIST_Y * 3 + BTN_V_SIZE * 2, BTN_H_SIZE/2, BTN_V_SIZE, hWnd, (HMENU)ID_EDIT_DICE1, hInst, NULL));
+		
+		myControls.push_back(CreateWindowEx(WS_EX_CLIENTEDGE, controlNames[EDIT], "",
+			WS_CHILD | WS_VISIBLE | ES_CENTER,
+			LIST_X * 2 + LIST_H_SIZE + BTN_H_SIZE / 2, LIST_Y * 3 + BTN_V_SIZE * 2, BTN_H_SIZE / 2, BTN_V_SIZE, hWnd, (HMENU)ID_EDIT_DICE2, hInst, NULL));
+
+		break;
+
+
 	case WM_COMMAND:
 		wmId    = LOWORD(wParam);
 		wmEvent = HIWORD(wParam);
+
+
 		// Parse the menu selections:
 		switch (wmId)
 		{
+
+		case ID_BTN_ROLL:
+
+			if (wmEvent == BN_CLICKED)
+			{
+				int sumOfdices = 0;
+				int fringe = 0;
+				int prevFringe = -1;
+
+				string fringeText = "";
+				//int take = GetPlayerTake();
+
+				int myContIndexes = 3;
+				
+				for (int i = 0; i < game->GetNumOfDices(); i++)
+					{
+						if (prevFringe == fringe)
+						{
+							// SetPlayerTake(++take);
+						}
+						else{
+							//SetPlayerTake(0);
+						}
+
+						fringe = game->GetFringe(i);
+
+						sumOfdices += fringe;
+
+						fringeText = std::to_string(fringe);
+
+						// Some actions
+
+						SendMessage(myControls[myContIndexes++], WM_SETTEXT, NULL, (LPARAM)fringeText.c_str());
+
+						//Edit_SetText()
+
+					}// for (int i = 0; i < dices.size(); i++)
+
+			}// if (wmEvent == BN_CLICKED)
+
+			break;
+
+		case ID_BTN_START:
+
+			if (wmEvent == BN_CLICKED)
+			{
+				//game->InitDices();
+			}
+
+			break;
+
 		case IDM_ABOUT:
 			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
 			break;
@@ -161,22 +243,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 
-	case WM_CREATE:
-
-		myControls.push_back(CreateWindowEx(WS_EX_CLIENTEDGE, controlNames[LISTBOX], "",
-			WS_CHILD | WS_VISIBLE,
-			LIST_X, LIST_Y, LIST_H_SIZE, LIST_V_SIZE, hWnd, (HMENU)ID_COMBO_LIST, hInst, NULL));
-
-		break;
+	
 
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		// TODO: Add any drawing code here...
 		EndPaint(hWnd, &ps);
 		break;
+
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}

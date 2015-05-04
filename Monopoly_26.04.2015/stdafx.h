@@ -23,6 +23,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <time.h>
 
 using std::vector;
 using std::string;
