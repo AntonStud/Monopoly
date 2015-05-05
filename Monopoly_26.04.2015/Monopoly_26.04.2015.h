@@ -36,3 +36,9 @@ enum IDENT {
 
 int FindCenterDesktopH(void);
 int FindCenterDesktopV(void);
+
+
+void InitGame(HWND hWnd, std::shared_ptr<Game> game);
+void RollDices(HWND hWnd, std::shared_ptr<Game> game, std::vector<HWND>myControls);
+
+void ChangePlayerToNext(std::shared_ptr<Game> game);

@@ -1,16 +1,15 @@
 #include "stdafx.h"
 #include "Dice.h"
 
-
 Dice::Dice(const int & fringes) :NUMOFFRINGES(fringes)
 {
-	InitDice();
+	CreateDice();
 
 	srand((unsigned int) time(NULL));
 
 }// Dice::Dice(const int & fringes) :NUMOFFRINGES(fringes)
-
-void Dice::InitDice()
+//------------------------------------------------------------------------
+void Dice::CreateDice()
 {
 	for (int i = 1; i <= NUMOFFRINGES; i++)
 	{
@@ -19,17 +18,14 @@ void Dice::InitDice()
 	}// for (int i = 1; i <= NUMOFFRINGES; i++)
 
 }// void Dice::InitDice()
-
-
+//------------------------------------------------------------------------
 int Dice::RollDice()
 {
-	int random = rand() % NUMOFFRINGES + 1;
-
-	return random;
+	return rand() % NUMOFFRINGES + 1;
 
 }// int Dice::RollDice()
-
-
+//------------------------------------------------------------------------
 Dice::~Dice()
 {
-}
+}// Dice::~Dice()
+//------------------------------------------------------------------------

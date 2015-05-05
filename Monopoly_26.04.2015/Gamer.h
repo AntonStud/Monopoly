@@ -11,15 +11,29 @@ private:
 
 	int playerCurPositon;
 
+	int playerNumOfTakes;
+
 	bool playerCanGo;
 
-	vector<std::shared_ptr<Property>> playerProperty;
+	bool playerOnRest;
+
+	bool playerInExchange;
+
+	//vector<std::shared_ptr<Property>> playerProperty;
 
 public:
 
-	Gamer();
+	Gamer(const string &name, const int& capital = 20000);
 
 	~Gamer();
+
+	void SetPlayerName(const string &name);
+
+	void SetPlayerCapital(const int &money);
+	int GetPlayerCapital()const;
+
+	int GetnumOfTakes() const;
+	void SetNumOfTakes(const int &number);
 
 };
 

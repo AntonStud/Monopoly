@@ -14,6 +14,8 @@ private:
 
 	int numOfPlayers;
 
+	int currentPlayerIndex;
+
 	//vector<shared_ptr<Property>> allEntities;
 	//vector<Notice*> notices;
 	//vector<Surpise*> surprises;
@@ -37,27 +39,56 @@ public:
 
 	~Game();
 
-	void InitDices();
+	
 
 	void InitGame();
 
-	void TransactMoney();
-
-	void SetNumOfPlayers();
-
-	void ChangePlayerTurn();
-
-	void ChangePlayerPosition();
-
-
+	
 
 	
 
+	
+
+	
+
+	// Work with players
+
+	// Settings
+	
+	void SetNumOfPlayers(const int &quantity);
+
+	void SetPlayerName(const int &playerNum, const string &name);
+
+
+	// Gameplay
+	void TransactMoney(const int &playerNum, const int &money);
+
+	void ChangePlayerToNext();
+
+	int GetCurrentPlayer() const;
+
+	int GetNumOfTakes(const int &playerNum);
+
+	void SetNumOfTakes(const int &playerNum, const int &takes);
+
+	void ChangePlayerPosition(const int &playerNum, const int &passes);
+	//----------------------------------------------------
+
+	
+	
 	// Work with dices
+
+	void InitDices();
+
+	void ResetDices();
+
 	int GetNumOfDices()const;
 
-	int GetFringe(const int &diceNum)const;
+	int GetRandomFringe(const int &diceNum)const;
 	//----------------------------------------------------
+
+
+
 
 
 };

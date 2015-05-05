@@ -13,9 +13,9 @@ char *controlNames[] = {
 	{ "COMBOBOX" }
 };
 
-std::unique_ptr<Game> game(new Game);
+//std::unique_ptr<Game> game(new Game);
 
-vector<HWND>myControls;
+
 
 // Global Variables:
 HINSTANCE hInst;								// current instance
@@ -144,11 +144,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 
-	
+	static std::shared_ptr<Game> game(new Game);
+	static std::vector<HWND>myControls;
 
 	switch (message)
 	{
 	case WM_CREATE:
+
+		// Create controls
 
 		myControls.push_back(CreateWindowEx(WS_EX_CLIENTEDGE, controlNames[LISTBOX], "",
 			WS_CHILD | WS_VISIBLE,
@@ -170,8 +173,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			WS_CHILD | WS_VISIBLE | ES_CENTER,
 			LIST_X * 2 + LIST_H_SIZE + BTN_H_SIZE / 2, LIST_Y * 3 + BTN_V_SIZE * 2, BTN_H_SIZE / 2, BTN_V_SIZE, hWnd, (HMENU)ID_EDIT_DICE2, hInst, NULL));
 
-		break;
 
+		myControls.push_back(CreateWindowEx(WS_EX_CLIENTEDGE, controlNames[LISTBOX], "",
+			WS_CHILD | WS_VISIBLE,
+			LIST_X, LIST_Y, LIST_H_SIZE, LIST_V_SIZE, hWnd, (HMENU)ID_COMBO_LIST, hInst, NULL));
+
+		//Create fields
+
+	/*	for (int i = 0; i < game->GetNumOfFields(); i++)
+		{
+
+
+
+		}
+*/
+		break;
 
 	case WM_COMMAND:
 		wmId    = LOWORD(wParam);
@@ -186,38 +202,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			if (wmEvent == BN_CLICKED)
 			{
-				int sumOfdices = 0;
-				int fringe = 0;
-				int prevFringe = -1;
-
-				string fringeText = "";
-				//int take = GetPlayerTake();
-
-				int myContIndexes = 3;
 				
-				for (int i = 0; i < game->GetNumOfDices(); i++)
-					{
-						if (prevFringe == fringe)
-						{
-							// SetPlayerTake(++take);
-						}
-						else{
-							//SetPlayerTake(0);
-						}
+				RollDices(hWnd, game, myControls);
+				
+				
+				//Discard statuses of other players -> need to pay rent
 
-						fringe = game->GetFringe(i);
 
-						sumOfdices += fringe;
 
-						fringeText = std::to_string(fringe);
+				//TODO: Some needed actions
 
-						// Some actions
 
-						SendMessage(myControls[myContIndexes++], WM_SETTEXT, NULL, (LPARAM)fringeText.c_str());
-
-						//Edit_SetText()
-
-					}// for (int i = 0; i < dices.size(); i++)
+				ChangePlayerToNext(game);
 
 			}// if (wmEvent == BN_CLICKED)
 
@@ -227,8 +223,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			if (wmEvent == BN_CLICKED)
 			{
-				//game->InitDices();
-			}
+				InitGame(hWnd, game);
+
+			}// if (wmEvent == BN_CLICKED)
 
 			break;
 
@@ -242,8 +239,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
 		break;
-
-	
 
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
@@ -260,7 +255,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	return 0;
 }
-
+//--------------------------------------------------------------------------------------------------
 // Message handler for about box.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -280,8 +275,75 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	return (INT_PTR)FALSE;
 }// INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+//--------------------------------------------------------------------------------------------------
+
+void InitGame(HWND hWnd, shared_ptr<Game> game)
+{
+	game->InitGame();
 
 
+
+}// void InitGame(HWND hWnd, shared_ptr<Game> game)
+//--------------------------------------------------------------------------------------------------
+void RollDices(HWND hWnd, std::shared_ptr<Game> game, std::vector<HWND>myControls)
+{
+	int sumOfFringes = 0;
+
+	int prevFringe = -1;
+
+	string fringeText = "";
+	string takesText = "";
+	string commonTurns = "";
+
+	int curPlayerIndex = game->GetCurrentPlayer();
+
+	int takes = game->GetNumOfTakes(curPlayerIndex);
+
+	// Need to change indexes to enum or something else!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	int myControlIndexes = 3;
+
+	for (int i = 0; i < game->GetNumOfDices(); i++)
+	{
+		int fringe = game->GetRandomFringe(i);
+		
+		if (prevFringe == fringe)
+		{
+			game->SetNumOfTakes(curPlayerIndex,++takes);
+
+			takesText = "You threw a take for the " + std::to_string(takes) + " time";
+
+			MessageBox(hWnd, takesText.c_str(), "TAKE", NULL);
+		}
+		else{
+
+			game->SetNumOfTakes(curPlayerIndex, 0);
+		}
+
+		prevFringe = fringe;
+
+		fringeText = std::to_string(fringe);
+
+		SendMessage(myControls[myControlIndexes++], WM_SETTEXT, NULL, (LPARAM)fringeText.c_str());
+
+		sumOfFringes += fringe;
+
+	}// for (int i = 0; i < dices.size(); i++)
+
+	commonTurns = "You need to move your figure into " + std::to_string(sumOfFringes) + " cells";
+
+	MessageBox(hWnd, commonTurns.c_str(), "Number of moves", NULL);
+
+}// RollDices()
+//--------------------------------------------------------------------------------------------------
+void ChangePlayerToNext(std::shared_ptr<Game> game)
+{
+	if (!game->GetNumOfTakes(game->GetCurrentPlayer()))
+	{
+		game->ChangePlayerToNext();
+
+	}// if (!game->GetNumOfTakes())
+}// 
+//--------------------------------------------------------------------------------------------------
 int FindCenterDesktopH(void)
 {
 	// Получаем хэндл рабочего стола
@@ -296,7 +358,7 @@ int FindCenterDesktopH(void)
 	return (rectDesktop.right - rectDesktop.left) / 2;
 
 }// int FindCenterDesktopH(void)
-
+//--------------------------------------------------------------------------------------------------
 int FindCenterDesktopV(void)
 {
 	// Получаем хэндл рабочего стола
@@ -310,3 +372,5 @@ int FindCenterDesktopV(void)
 
 	return (rectDesktop.bottom - rectDesktop.top) / 2;
 }// int FindCenterDesktopV(void
+//--------------------------------------------------------------------------------------------------
+
