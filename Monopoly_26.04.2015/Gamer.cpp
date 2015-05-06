@@ -30,6 +30,12 @@ void Gamer::SetPlayerName(const string &name)
 
 }// void Gamer::SetPlayerName(const string &name)
 //--------------------------------------------------------------------------
+string Gamer::GetPlayerName()const
+{
+	return playerName;
+}// string Gamer::GetPlayerName()const
+//---------------------------------------------------------------------
+
 int Gamer::GetnumOfTakes() const
 {
 	return playerNumOfTakes;
@@ -53,4 +59,14 @@ int Gamer::GetPlayerCapital()const
 	return playerCapital;
 
 }// int Gamer::GetPlayerCapital()const
+//--------------------------------------------------------------------------
+void Gamer::SetPlayerPositon(const int &position)
+{
+	playerCurPositon = position;
+}// void Gamer::SetPlayerPositon(const int &position)
+//--------------------------------------------------------------------------
+int Gamer::GetPlayerPositon()const
+{
+	return playerCurPositon;
+}// int Gamer::GetPlayerPositon()const
 //--------------------------------------------------------------------------

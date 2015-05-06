@@ -23,14 +23,18 @@ private:
 
 public:
 
-	Gamer(const string &name, const int& capital = 20000);
+	Gamer(const string &name = "Player", const int& capital = 20000);
 
 	~Gamer();
 
 	void SetPlayerName(const string &name);
+	string GetPlayerName()const;
 
 	void SetPlayerCapital(const int &money);
 	int GetPlayerCapital()const;
+
+	void SetPlayerPositon(const int &position);
+	int GetPlayerPositon()const;
 
 	int GetnumOfTakes() const;
 	void SetNumOfTakes(const int &number);
