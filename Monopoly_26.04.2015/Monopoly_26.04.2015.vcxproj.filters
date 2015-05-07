@@ -27,9 +27,6 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Monopoly_26.04.2015.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Gamer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,12 +51,12 @@
     <ClInclude Include="Dice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Monopoly.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Monopoly_26.04.2015.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Gamer.cpp">
@@ -86,6 +83,9 @@
     <ClCompile Include="Dice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Monopoly.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Monopoly_26.04.2015.rc">
@@ -99,5 +99,8 @@
     <Image Include="Monopoly.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="html1.htm" />
   </ItemGroup>
 </Project>

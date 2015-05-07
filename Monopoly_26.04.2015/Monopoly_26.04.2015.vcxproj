@@ -83,7 +83,7 @@
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gamer.h" />
-    <ClInclude Include="Monopoly_26.04.2015.h" />
+    <ClInclude Include="Monopoly.h" />
     <ClInclude Include="Notice.h" />
     <ClInclude Include="Property.h" />
     <ClInclude Include="Resource.h" />
@@ -97,7 +97,7 @@
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gamer.cpp" />
-    <ClCompile Include="Monopoly_26.04.2015.cpp" />
+    <ClCompile Include="Monopoly.cpp" />
     <ClCompile Include="Notice.cpp" />
     <ClCompile Include="Property.cpp" />
     <ClCompile Include="SpecialPlace.cpp" />
@@ -113,6 +113,11 @@
   <ItemGroup>
     <Image Include="Monopoly.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="html1.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -6,7 +6,7 @@ ControlProp Controls[] = {
 	{ "EDIT", EDIT },
 	{ "LISTBOX", LISTBOX },
 	{ "COMBOBOX", COMBOBOX },
-	{ "LABEL", LABEL },
+	{ "STATIC", STATIC },
 	{ "#", TERMINATE },
 };
 
@@ -31,10 +31,6 @@ Game::~Game()
 
 void Game::CreateControls(HWND hWnd, HINSTANCE hInst)
 {
-	myControls.emplace_back(CreateWindowEx(NULL, Controls[BUTTON].controlName.c_str(), "START",
-		WS_CHILD | WS_VISIBLE,
-		LIST_X * 2 + LIST_H_SIZE, LIST_Y, BTN_H_SIZE, BTN_V_SIZE, hWnd, (HMENU)ID_BTN_START, hInst, NULL));
-
 	myControls.emplace_back(CreateWindowEx(NULL, Controls[BUTTON].controlName.c_str(), "ROLL",
 		WS_CHILD | WS_VISIBLE,
 		LIST_X * 2 + LIST_H_SIZE, LIST_Y * 2 + BTN_V_SIZE, BTN_H_SIZE, BTN_V_SIZE, hWnd, (HMENU)ID_BTN_ROLL, hInst, NULL));
@@ -47,6 +43,12 @@ void Game::CreateControls(HWND hWnd, HINSTANCE hInst)
 		WS_CHILD | ES_CENTER | WS_VISIBLE,
 		LIST_X * 2 + LIST_H_SIZE + BTN_H_SIZE / 2, LIST_Y * 3 + BTN_V_SIZE * 2, BTN_H_SIZE / 2, BTN_V_SIZE, hWnd, (HMENU)ID_EDIT_DICE2, hInst, NULL));
 
+	myControls.emplace_back(CreateWindowEx(WS_EX_CLIENTEDGE, Controls[LISTBOX].controlName.c_str(), "",
+		WS_CHILD | WS_VISIBLE,
+		120, 220, 150, 200, hWnd, (HMENU)ID_LIST_PLAYERS, hInst, NULL));
+
+
+//file.close();
 }// void Game::CreateControls(HWND hWnd, HINSTANCE hInst)
 
 
@@ -229,4 +231,15 @@ int Game::GetIndexOfField(const int &ID)
 	return playFields[i]->GetFieldIndex();
 
 }//int Game::GetIndexOfField(const int &ID)
+//--------------------------------------------------------------------------
+
+HWND &Game::GetControl(const int & number)
+{
+	return myControls[number];
+}// 
+//--------------------------------------------------------------------------
+int Game::GetControlNumber(const int &ID)
+{
+	return ID - SHIFT;
+}// 
 //--------------------------------------------------------------------------

@@ -7,7 +7,7 @@
 #include "Dice.h"
 
 enum CTRLSNMS {
-	BUTTON, EDIT, LISTBOX, COMBOBOX, LABEL, TERMINATE
+	BUTTON, EDIT, LISTBOX, COMBOBOX, STATIC, TERMINATE
 };
 
 struct ControlProp{
@@ -17,9 +17,15 @@ struct ControlProp{
 
 enum IDENT {
 
-	ID_BTN_DOWN = 1000, ID_COMBO_LIST, ID_BTN_ROLL, ID_BTN_START, ID_EDIT_DICE1, ID_EDIT_DICE2, IDM_NAMES,
-	ID_GETNAME_EDIT, ID_GETNAME_OK, ID_EXCHANGE_FIELD
+	SHIFT = 1000, ID_BTN_ROLL = 1000, ID_EDIT_DICE1, ID_EDIT_DICE2, ID_LIST_PLAYERS,
+	ID_EDIT_NAME, ID_LABEL_NAME, IDB_BTN_OK
+	
 
+};
+
+enum FIELDS {
+
+	FIELDSHIFT = 2000, FIELD_START = 2000, FIELD_EXCHANGE
 };
 
 typedef unsigned int ui;
@@ -27,7 +33,7 @@ typedef unsigned int ui;
 enum INIT {
 	FIRST_TIMER = 1, SECOND_TIMER, REDUCE = 5,
 	HALF = 2, TIME_MOVE = 10, TIME_MOVE2 = 200,
-	POSX = 300, POSY = 250, WIDTH = 750, HEIGHT = 500,
+	POSX = 300, POSY = 250, WIDTH = 1360, HEIGHT = 730,
 	BTN_H_SIZE = 150, BTN_V_SIZE = 25, X_FIRSTBTN_POZ = 10, Y_FIRSTBTN_POZ = 10,
 	V_SHIFT = 5, H_SHIFT = 10, STOP_SIZE = 200, EDIT_BOX_V_SIZE = 30, EDIT_BOX_H_SIZE = 250,
 	EDIT_BOX_SINGLE_V_SIZE = 30, NAME_SIZE = 100, FEE_SIZE = 8,
@@ -62,6 +68,8 @@ private:
 	//vector<Surpise*> surprises;
 	//vector<SpecialPlace*> specialPlaces;
 
+	fstream file;
+
 	bool isGameOver;
 
 public:
@@ -92,6 +100,10 @@ public:
 	void InitPlayer(const string &name, const int &money = 20000);
 
 	void SetPlayerName(const int &playerNum, const string &name);
+
+	HWND &GetControl(const int & number);
+
+	int GetControlNumber(const int &ID);
 
 
 	// Gameplay

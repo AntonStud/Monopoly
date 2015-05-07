@@ -9,6 +9,7 @@ ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK	GroupBoxProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 //LRESULT CALLBACK	GetName(HWND, UINT, WPARAM, LPARAM);
 
 
@@ -20,7 +21,7 @@ int FindCenterDesktopH(void);
 int FindCenterDesktopV(void);
 
 
-void InitGame(HWND hWnd, std::shared_ptr<Game> game);
+void InitGame(HWND hWnd, std::shared_ptr<Game> game, HWND start);
 
 void RollDices(std::shared_ptr<Game> game);
 
