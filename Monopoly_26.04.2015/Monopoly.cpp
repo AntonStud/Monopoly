@@ -194,9 +194,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				{
 					nextPosition -= numOfFields;
 
-					ShowMessage("You`ve got money")
+					if (!nextPosition)
+					{
+						ShowMessage("You`ve got money");
 
-					TransactPlayerMoney(STARTMONEY);
+							TransactPlayerMoney(STARTMONEY);
+					}
+
+					
 				}
 
 				if (IsPlayerInExchange())
@@ -299,7 +304,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 						}else if(!IsPropertyInDeposit()){
 
-							SetPropertyStatusHaveToPayRent(currPlayer);
+							SetPropertyStatusHasIntruder(currPlayer);
 
 						}
 
@@ -353,6 +358,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 							ShowMessage("You are at the start");
 
+							ShowMessage("You`ve got money");
+
+							TransactPlayerMoney(STARTMONEY);
+
 							break;
 
 						case REST:
@@ -365,7 +374,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 						case EXCHANGE:
 
-							ShowMessage("You visit an exchange");
+							if (!GetPlayerStatusIsInExchange())
+							{
+								ShowMessage("Simple visit of an exchange");
+							}
 
 							break;
 
@@ -859,4 +871,88 @@ LRESULT CALLBACK GroupBoxProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 	}
 
 	return ::CallWindowProc(OldGroupBoxProc, hWnd, uMsg, wParam, lParam);
+}
+
+
+EnableCurrPlayerControls(currPlayer)
+{
+
+	EnableGroupBox(currPlayerName());
+	
+	EnableRollDices();
+
+
+	if (PlayerIsInExchange())
+	{
+		EnableBtnPayToGoFromExchange();
+
+		if (HasCardToGoFromExchange())
+		{
+			EnableBtnGoFromExchange();
+
+		}
+	}
+	
+	if (PlayerHasProperty){
+
+		EnablePropertyList()
+		{
+
+			if (!IsPropertyInDeposit() && !PropertyHasFilial() && !PropertyHasEntity())
+			{
+				EnableBtnToDeposit();
+
+				//EnableBtnSellToOtherPlayer();
+
+				//EnableWindowSumOfSell();
+
+				EnableListOfOtherPlayers();
+
+			}
+
+			if (IsPropertyInDeposit() )
+			{
+				EnableBtnBuyOut();
+			}
+
+
+			if (IsPropertyInGroup())
+			{
+				if (PropertyHasFilial())
+				{
+
+					EnableBtnSellFilial();
+
+				}
+
+				if (GetNumOfFilials() < 3)
+				{
+					EnableBtnBuyFilial();
+
+				}
+
+				if (GetNumOfFilials() == 3)
+				{
+					EnableBtnBuyEntity();
+
+				}
+			
+			}
+
+			if (!PropertyHasEntity())
+			{
+				EnableBtnSellEntity();
+
+			}
+
+			if (PropertyHasIntruder)
+			{
+				EnableBtnAskForRent();
+
+			}
+
+		}
+
+	}
+
 }

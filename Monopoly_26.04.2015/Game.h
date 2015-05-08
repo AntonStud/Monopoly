@@ -68,6 +68,10 @@ private:
 	//vector<Surpise*> surprises;
 	//vector<SpecialPlace*> specialPlaces;
 
+	int numOfFilials;
+
+	int numOfEntities;
+
 	fstream file;
 
 	bool isGameOver;
