@@ -5,6 +5,12 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Monopoly_26.04.2015", "Monopoly_26.04.2015\Monopoly_26.04.2015.vcxproj", "{2071D80D-C9BF-4090-9EDE-FC9913713755}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monopoly1", "Monopoly1", "{25B0AB0C-33C3-46BA-BDC2-D4F2A66CDB6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monopoly2", "Monopoly2", "{2CE3F05D-CA50-46B0-BACB-63AF4EF54BBC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Makler", "Makler\Makler.vcxproj", "{F115C8B3-EE95-443A-8E75-A5425F4BBEC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,8 +21,16 @@ Global
 		{2071D80D-C9BF-4090-9EDE-FC9913713755}.Debug|Win32.Build.0 = Debug|Win32
 		{2071D80D-C9BF-4090-9EDE-FC9913713755}.Release|Win32.ActiveCfg = Release|Win32
 		{2071D80D-C9BF-4090-9EDE-FC9913713755}.Release|Win32.Build.0 = Release|Win32
+		{F115C8B3-EE95-443A-8E75-A5425F4BBEC9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F115C8B3-EE95-443A-8E75-A5425F4BBEC9}.Debug|Win32.Build.0 = Debug|Win32
+		{F115C8B3-EE95-443A-8E75-A5425F4BBEC9}.Release|Win32.ActiveCfg = Release|Win32
+		{F115C8B3-EE95-443A-8E75-A5425F4BBEC9}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2071D80D-C9BF-4090-9EDE-FC9913713755} = {25B0AB0C-33C3-46BA-BDC2-D4F2A66CDB6F}
+		{F115C8B3-EE95-443A-8E75-A5425F4BBEC9} = {2CE3F05D-CA50-46B0-BACB-63AF4EF54BBC}
 	EndGlobalSection
 EndGlobal

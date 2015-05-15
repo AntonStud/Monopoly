@@ -1,5 +1,7 @@
 #pragma once
 
+#include "stdafx.h"
+
 #include "Property.h"
 #include "Gamer.h"
 #include "Field.h"
@@ -18,17 +20,13 @@ struct ControlProp{
 enum IDENT {
 
 	SHIFT = 1000, ID_BTN_ROLL = 1000, ID_EDIT_DICE1, ID_EDIT_DICE2, ID_LIST_PLAYERS,
-	ID_EDIT_NAME, ID_LABEL_NAME, IDB_BTN_OK
-	
+	ID_EDIT_NAME, ID_LABEL_NAME, IDB_BTN_OK, 
+	FIELD_START = 2000, FIELD_END = 2039, 
+	ID_CHECK_START = 3000, ID_CHECK_END = 3039
 
 };
 
-enum FIELDS {
 
-	FIELDSHIFT = 2000, FIELD_START = 2000, FIELD_EXCHANGE
-};
-
-typedef unsigned int ui;
 
 enum INIT {
 	FIRST_TIMER = 1, SECOND_TIMER, REDUCE = 5,

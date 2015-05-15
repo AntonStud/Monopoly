@@ -18,17 +18,10 @@
 #include <tchar.h>
 
 
-
 // TODO: reference additional headers your program requires here
 #include <vector>
 #include <string>
 #include <memory>
 #include <time.h>
 #include <fstream>
-
-using std::vector;
-using std::string;
-using std::shared_ptr;
-using std::fstream;
-
-typedef unsigned int ui;
+#include <algorithm>    
