@@ -15,6 +15,7 @@ enum IDENT {
 	IDB_BTN_BAIL_PROPERTY, IDB_BTN_BUYOUT_PROPERTY,
 	IDB_BTN_BUY_FILIATION, IDB_BTN_SELL_FILIATION, IDB_BTN_BUY_ENTITY, IDB_BTN_SELL_ENTITY,
 	IDB_BTN_STOCK_FREE, IDB_BTN_STOCK_PAY, IDB_LABEL_ENTER_NAME, ID_EDIT_NAME, IDB_BTN_SUBMIT_NAME,
+	IDB_LABEL_CAPITAL_TITLE, IDB_EDIT_CAPITAL,
 	IDB_TERMINATE_GROUPBOX,
 
 
@@ -29,5 +30,16 @@ enum IDENT {
 };
 
 
-void InitGame(std::shared_ptr<Game> &game);
-void GetNames(std::vector<HWND> &group, std::vector<std::string> &names);
+void InitGame(std::shared_ptr<Game> &game, HWND &playersListLabel, HWND &playersList, 
+	std::vector<HWND> &groupControls, std::vector<HWND> &fields, 
+	std::vector<HWND> &checks, HWND &surprise, HWND &notification);
+
+void EnableCurrPlayerControls(std::shared_ptr<Game> &game, HWND &playersList, 
+	std::vector<HWND> &groupControls, std::vector<HWND> &checks);
+
+void GetNames(std::vector<HWND> &group, std::shared_ptr<Game> &game);
+
+void FillPlayersList(const std::shared_ptr<Game> &game, HWND &playersList);
+
+void ShowFields(std::vector<HWND> &fields);
+
