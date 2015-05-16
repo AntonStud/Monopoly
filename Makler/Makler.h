@@ -43,3 +43,5 @@ void FillPlayersList(const std::shared_ptr<Game> &game, HWND &playersList);
 
 void ShowFields(std::vector<HWND> &fields);
 
+void HideAllControls(std::vector<HWND> &groupControls);
+
